@@ -7,5 +7,12 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "天气预报",
     "navigationBarTextStyle":"black"
+  },
+
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于获取当地的天气情况"
+    }
   }
+
 }
