@@ -1,0 +1,11 @@
+.future{
+  display: flex;
+}
+
+.future text{
+  flex: 1;
+}
+
+.detail text{
+  font-size: 20rpx;
+}

@@ -6,4 +6,22 @@
   <view>风力：{{power}}</view>
   <view>风向：{{direct}}</view>
   <view>空气质量指数：{{aqi}}</view>
+
+<view style='margin-top: 100rpx; color; font-size: 56rpx;'>未来一周的天气情况</view>
+  <view class='future'>
+    <text>日期</text>
+    <text>温度</text>
+    <text>风向</text>
+    <text>天气状况</text>
+  </view>
+
+  <view class='future detail' wx:for="{{futureWeather}}">
+    <text>{{item.date}}</text>
+    <text>{{item.temperature}}</text>
+    <text>{{item.direct}}</text>
+    <text>{{item.weather}}</text>
+  </view>
+
 </block>
+
+  

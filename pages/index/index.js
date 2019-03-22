@@ -52,13 +52,15 @@ Page({
                 console.log(msg);
                 console.log(msg.data.result.realtime);
                 var realtime = msg.data.result.realtime;
+                var future = msg.data.result.future;
 
                 self.setData({
                   temperature: realtime.temperature,
                   humidity: realtime.humidity,
                   power: realtime.power,
                   direct: realtime.direct,
-                  aqi: realtime.aqi
+                  aqi: realtime.aqi,
+                  futureWeather: future
                 })
                 
               }
