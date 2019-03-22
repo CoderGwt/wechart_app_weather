@@ -9,3 +9,25 @@
 .detail text{
   font-size: 20rpx;
 }
+
+.search{
+  display: flex;
+}
+
+.search input{
+  border: 2rpx solid #ccc;
+  border-radius: 40rpx;
+  margin-left: 10rpx;
+  width: 50%;
+  height: 60rpx;
+  padding-left: 14rpx;
+}
+
+.btn{
+  width: 30%;
+  height: 60rpx;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  
+}

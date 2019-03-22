@@ -1,4 +1,13 @@
 <button bindtap="getWeather">获取本地天气状况</button>
+
+  
+<view>输入获取【城市名/id】指定城市天气</view>
+<view class='search'>
+  <input name='searchMsg' bindblur="blurMsg"></input>
+  <button class='btn' bindtap='getDetailMsg'>搜索</button>
+</view>
+
+
 <block wx:if="{{city}}">
   <view>当前位置：{{city}}</view>
   <view>温度：{{temperature}}℃</view>
@@ -23,5 +32,3 @@
   </view>
 
 </block>
-
-  

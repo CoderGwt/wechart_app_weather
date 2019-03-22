@@ -62,15 +62,66 @@ Page({
                   aqi: realtime.aqi,
                   futureWeather: future
                 })
-                
               }
             })
           }
         })
-
       },
     });
   },
+
+  getDetailMsg: function(){
+
+  },
+
+  blurMsg: function(e){
+    console.log(e);
+    console.log(e.detail.value);
+
+    var self = this;
+    var city = e.detail.value;
+    // 请求到城市之后，就获取该城市的天气情况
+    wx.request({
+      url: 'http://apis.juhe.cn/simpleWeather/query',
+      data: {
+        city: city,
+        key: "3de2c1e1c5080d23987fc22e1dc3b3d5",
+      },
+      method: 'get',
+      success: function (msg) {
+        if(!msg.data.result) {
+            wx.showModal({
+              title: '错误提示',
+              content: '输入的城市有误，请重新输入',
+            })
+            return;
+        }
+         
+        console.log(msg);
+        console.log(msg.data.result.realtime);
+        var realtime = msg.data.result.realtime;
+        var future = msg.data.result.future;
+        self.setData({
+          city: msg.data.result.city,
+          temperature: realtime.temperature,
+          humidity: realtime.humidity,
+          power: realtime.power,
+          direct: realtime.direct,
+          aqi: realtime.aqi,
+          futureWeather: future
+        })
+      },
+      fail: function(error){
+        console.log(error);
+        wx.showToast({
+          title: '获取数据失败',
+        })
+      }
+    })
+
+
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
