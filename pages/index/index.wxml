@@ -1,1 +1,9 @@
 <button bindtap="getWeather">获取本地天气状况</button>
+<block wx:if="{{city}}">
+  <view>当前位置：{{city}}</view>
+  <view>温度：{{temperature}}℃</view>
+  <view>湿度：{{humidity}}</view>
+  <view>风力：{{power}}</view>
+  <view>风向：{{direct}}</view>
+  <view>空气质量指数：{{aqi}}</view>
+</block>

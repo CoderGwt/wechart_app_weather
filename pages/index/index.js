@@ -4,7 +4,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    city:"",
+    temperature:"",
+    humidity: "",
+    aqi: "",
+    power: "",
+    direct: ""
   },
 
   getWeather: function(){
@@ -44,11 +49,20 @@ Page({
               },
               method: 'get',
               success: function(msg){
-                console.log(msg)
+                console.log(msg);
+                console.log(msg.data.result.realtime);
+                var realtime = msg.data.result.realtime;
+
+                self.setData({
+                  temperature: realtime.temperature,
+                  humidity: realtime.humidity,
+                  power: realtime.power,
+                  direct: realtime.direct,
+                  aqi: realtime.aqi
+                })
+                
               }
             })
-
-
           }
         })
 
