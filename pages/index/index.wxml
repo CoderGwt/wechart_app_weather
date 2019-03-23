@@ -1,3 +1,14 @@
+<view class="section">
+  <view class="section__title">省市区选择器</view>
+  <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <view class="picker">
+      <!-- 当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}} -->
+      当前选择：{{region[0]}}，{{region[1]}}
+    </view>
+  </picker>
+</view>
+
+
 <button bindtap="getWeather">获取本地天气状况</button>
 
   
@@ -8,7 +19,7 @@
 </view>
 
 
-<block wx:if="{{city}}">
+<block wx:if="{{right}}">
   <view>当前位置：{{city}}</view>
   <view>温度：{{temperature}}℃</view>
   <view>湿度：{{humidity}}</view>
@@ -24,7 +35,7 @@
     <text>天气状况</text>
   </view>
 
-  <view class='future detail' wx:for="{{futureWeather}}">
+  <view class='future detail' wx:for="{{futureWeather}}" wx:key="{{index}}">
     <text>{{item.date}}</text>
     <text>{{item.temperature}}</text>
     <text>{{item.direct}}</text>

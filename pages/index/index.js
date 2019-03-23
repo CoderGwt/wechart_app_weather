@@ -9,7 +9,73 @@ Page({
     humidity: "",
     aqi: "",
     power: "",
-    direct: ""
+    direct: "",
+    right: false,
+    region: ['广东省', '广州市'],
+    customItem: ''
+  },
+
+  bindRegionChange: function (e) {
+    var self = this;
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log(e.detail.value[0])
+    var provice = e.detail.value[0].slice(0, -1);
+    var city = e.detail.value[1].slice(0, -1);
+    var country = e.detail.value[2].slice(0, -1);
+    console.log(provice, city, country)
+    this.setData({
+      region: e.detail.value,
+      // city: city
+    });
+
+    // 请求到城市之后，就获取该城市的天气情况
+    wx.request({
+      url: 'http://apis.juhe.cn/simpleWeather/query',
+      data: {
+        city: city,
+        key: "3de2c1e1c5080d23987fc22e1dc3b3d5",
+      },
+      method: 'get',
+      success: function (msg) {
+
+        if (!msg.data.result) {
+          self.setData({
+            right: false
+          });
+
+          wx.showModal({
+            title: '错误提示',
+            content: '输入的城市有误，请重新输入',
+          })
+
+          return;
+        }
+
+        console.log(msg);
+        console.log(msg.data.result.realtime);
+        var realtime = msg.data.result.realtime;
+        var future = msg.data.result.future;
+        self.setData({
+          city: msg.data.result.city,
+          temperature: realtime.temperature,
+          humidity: realtime.humidity,
+          power: realtime.power,
+          direct: realtime.direct,
+          aqi: realtime.aqi,
+          futureWeather: future,
+          right: true
+        })
+      },
+      fail: function (error) {
+        console.log(error);
+        wx.showToast({
+          title: '获取数据失败',
+        })
+      }
+    })
+
+
+
   },
 
   getWeather: function(){
@@ -60,7 +126,8 @@ Page({
                   power: realtime.power,
                   direct: realtime.direct,
                   aqi: realtime.aqi,
-                  futureWeather: future
+                  futureWeather: future,
+                  right: true
                 })
               }
             })
@@ -74,29 +141,41 @@ Page({
 
   },
 
-  blurMsg: function(e){
-    console.log(e);
-    console.log(e.detail.value);
+  // blurMsg: function(e){
+  //   console.log(e);
+  //   console.log(e.detail.value);
+  //   var city = e.detail.value;
+  //   this.setData({
+  //     city: city
+  //   })
+  // },
 
+  getDetailMsg: function(){
     var self = this;
-    var city = e.detail.value;
+    
     // 请求到城市之后，就获取该城市的天气情况
     wx.request({
       url: 'http://apis.juhe.cn/simpleWeather/query',
       data: {
-        city: city,
+        city: self.data.city,
         key: "3de2c1e1c5080d23987fc22e1dc3b3d5",
       },
       method: 'get',
       success: function (msg) {
-        if(!msg.data.result) {
-            wx.showModal({
-              title: '错误提示',
-              content: '输入的城市有误，请重新输入',
-            })
-            return;
+        
+        if (!msg.data.result) {
+          self.setData({
+            right: false
+          });
+
+          wx.showModal({
+            title: '错误提示',
+            content: '输入的城市有误，请重新输入',
+          })
+        
+        return;
         }
-         
+
         console.log(msg);
         console.log(msg.data.result.realtime);
         var realtime = msg.data.result.realtime;
@@ -108,18 +187,17 @@ Page({
           power: realtime.power,
           direct: realtime.direct,
           aqi: realtime.aqi,
-          futureWeather: future
+          futureWeather: future,
+          right: true
         })
       },
-      fail: function(error){
+      fail: function (error) {
         console.log(error);
         wx.showToast({
           title: '获取数据失败',
         })
       }
     })
-
-
   },
 
 

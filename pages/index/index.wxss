@@ -7,7 +7,7 @@
 }
 
 .detail text{
-  font-size: 20rpx;
+  font-size: 38rpx;
 }
 
 .search{
